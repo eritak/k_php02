@@ -1,0 +1,9 @@
+th{
+    text-align: center;
+}
+
+td{
+    padding-left: 3px;
+    padding-right: 3px;
+    height: 25px;
+}
