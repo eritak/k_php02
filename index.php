@@ -24,8 +24,8 @@
   <div class="jumbotron">
    <fieldset>
       <legend>為替オーダー</legend>
-      <label>積月：<select id="shipmonth" name="shipmonth"></select>月</label><br>
-      <label>限月：<select id="duemonth" name="duemonth"></select>月</label><br>
+      <label>積月：<input type="number" id="shipmonth" name="shipmonth" min=1 max=12></input>月</label><br>
+      <label>限月：<input type="number" id="duemonth" name="duemonth" min=1 max=12></input>月</label><br>
       <label>種類： 
           <select id="type" name="type">
             <option value="SPOT">SPOT</option>

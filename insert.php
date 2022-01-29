@@ -2,20 +2,16 @@
 // 1. POSTデータ取得
 //$name = filter_input( INPUT_GET, ","name" ); //こういうのもあるよ
 //$email = filter_input( INPUT_POST, "email" ); //こういうのもあるよ
-$shipmonth = $_POST['shipmonth'];
-$duemonth = $_POST['duemonth'];
-$type = $_POST['type'];
-$rate = number_format($_POST['rate'],2);
-$amount = $_POST['amount'];
+$shipmonth = $_POST["shipmonth"];
+$duemonth = $_POST["duemonth"];
+$type = $_POST["type"];
+$rate = number_format($_POST["rate"],2);
+$amount = $_POST["amount"];
 
 
-// 2. DB接続します
-try {
-  //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=corntest_db;charset=utf8;host=localhost','root','root');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+// 2. DB接続
+require_once('funcs.php');
+$pdo = db_conn();
 
 
 // ３．SQL文を用意(データ登録：INSERT)
@@ -37,10 +33,7 @@ $status = $stmt->execute();
 // 6．データ登録処理後
 if($status==false){
   //SQL実行時にエラーがある場合（エラーオブジェクト取得して表示）
-  $error = $stmt->errorInfo();
-  exit("ErrorMassage:".$error[2]);
+  sql_error($stmt);
 }else{
-  header('Location: index.php');//ヘッダーロケーション（リダイレクト）
-  
+  redirect('index.php');//ヘッダーロケーション（リダイレクト）
 }
-?>

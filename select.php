@@ -1,11 +1,8 @@
 <?php
 //1.  DB接続します
-try {
-  //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=corntest_db;charset=utf8;host=localhost','root','root');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+require_once('funcs.php');
+$pdo = db_conn();
+
 
 //２．SQL文を用意(データ取得：SELECT)
 $stmt = $pdo->prepare("SELECT * FROM corntest_an_table");
@@ -17,14 +14,18 @@ $status = $stmt->execute();
 $view="";
 if($status==false) {
     //execute（SQL実行時にエラーがある場合）
-  $error = $stmt->errorInfo();
-  exit("ErrorQuery:".$error[2]);
-
+    sql_error($stmt);
 }else{
   //Selectデータの数だけ自動でループしてくれる
   //FETCH_ASSOC=http://php.net/manual/ja/pdostatement.fetch.php
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){ 
     $view .= "<tr>";
+    $view .= "<td>";
+    $view .= "<a href=";
+    $view .= "'detail.php?id=".$result['id']."'>";
+    $view .= "更新";
+    $view .= "</a>";
+    $view .= "</td>";
     $view .= "<td>";
     $view .= $result['indate'];
     $view .= "</td>";
@@ -43,6 +44,13 @@ if($status==false) {
     $view .= "<td align='right'>";
     $view .= "$";
     $view .= $result['amount'];
+    $view .= "</td>";
+    $view .= "<td>";
+    $view .= '<a href="delete.php?id='.$result['id'].'">';
+    $view .= '<font size=1>';
+    $view .= '[ 削除 ]';
+    $view .= '</font>';
+    $view .= '</a>';
     $view .= "</td>";
     $view .= "</tr>";;
   }
@@ -82,6 +90,7 @@ if($status==false) {
 <div>
     <table border="1">
       <tr>
+          <th width="60px"></th>
           <th width="160px" height="25px">オーダー日時</th>
           <th width="50px">積月</th>
           <th width="50px">限月</th>
@@ -89,6 +98,7 @@ if($status==false) {
           <th width="70px">レート</th>
           <th width="100px">金額</th>
       </tr>
+      
       <?= $view ?>
     </table>
 </div>
