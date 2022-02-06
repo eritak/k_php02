@@ -34,3 +34,23 @@ function redirect($file_name){
     header("Location: " .$file_name);
     exit();
 }
+
+//ログインチェック
+function loginCheck(){
+    if( $_SESSION["chk_ssid"] != session_id() ){
+      exit('LOGIN ERROR');
+    }else{
+      session_regenerate_id(true);
+      $_SESSION['chk_ssid'] = session_id();
+    }
+  }
+
+//管理フラグチェック
+function kanriCheck(){
+    if( $_SESSION["kanri_flg"] != "1" ){
+      exit('アクセス不可');
+    }else{
+      session_regenerate_id(true);
+      $_SESSION['chk_ssid'] = session_id();
+    }
+  }

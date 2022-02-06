@@ -1,8 +1,14 @@
 <?php
+session_start();
+
 //1.  DB接続します
 require_once('funcs.php');
-$pdo = db_conn();
+logincheck();
 
+$user_name = $_SESSION['name'];
+$kanri_flg = $_SESSION['kanri_flg']; //0が一般、1が管理者→if分で、0か1でhtml内容を変えることができる。
+
+$pdo = db_conn();
 
 //２．SQL文を用意(データ取得：SELECT)
 $stmt = $pdo->prepare("SELECT * FROM corntest_an_table");
@@ -80,6 +86,9 @@ if($status==false) {
     <div class="container-fluid">
       <div class="navbar-header">
       <a class="navbar-brand" href="index.php">オーダー登録</a>
+      <a class="navbar-brand" href="usertable.php">ユーザー一覧</a>
+      <a class="navbar-brand" href="logout.php">ログアウト</a>
+      <p><?= $user_name?>様</p>
       </div>
     </div>
   </nav>

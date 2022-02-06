@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+$user_name = $_SESSION['name'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,9 +19,17 @@
 <header>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
-    <div class="navbar-header"><a class="navbar-brand" href="select.php">オーダー履歴一覧</a></div>
-    <div class="navbar-header"><a class="navbar-brand" href="shipmonthselect.php">1月積オーダー履歴一覧</a></div>
+      <div>
+       <a class="navbar-brand" href="select.php">オーダー履歴一覧</a>
+       <a class="navbar-brand" href="shipmonthselect.php">1月積オーダー履歴一覧</a>
+       <a class="navbar-brand" href="usertable.php">ユーザー一覧</a>
+       <a class="navbar-brand" href="logout.php">ログアウト</a>
+       </div>
+       <div>
+       <p><?= $user_name?>様</p>
+       </div>
     </div>
+
   </nav>
 </header>
 <!-- Head[End] -->
@@ -41,24 +56,24 @@
 <!-- Main[End] -->
 
 <!-- JQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <!-- JQuery -->
 
-<script>
+<!-- <script>
   // 積月の選択
   let shipmonthHTML = '';
     for(let i = 1; i<13; i++){
         shipmonthHTML += '<option value="'+i+'">'+i+'</option>'
     }
-    $('#shipmonth').html(shipmonthHTML)
+    $('#shipmonth').html(shipmonthHTML) -->
 
-// 限月の選択
+<!-- // 限月の選択
     let duemonthHTML = '';
     for(let i = 1; i<13; i++){
         duemonthHTML += '<option value="'+i+'">'+i+'</option>'
     }
     $('#duemonth').html(duemonthHTML)
-</script>
+</script> -->
 
 
 </body>
